@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/App.Canvas/.vs/App.Canvas
+/App.Canvas/App.Canvas/obj
+/App.Canvas/Library.Canvas/obj
+/App.Canvas/App.Canvas/bin/Debug/net8.0
+/App.Canvas/Library.Canvas/bin/Debug/net8.0
