@@ -12,6 +12,7 @@
 
         public Person()
         {
+            Name = string.Empty;
             Grades = new Dictionary<int, double>();
         }
 
