@@ -15,5 +15,12 @@ namespace Library.Canvas.Services
         {
             courseList.Add(course);
         }
+        public List<Course> Courses
+        {
+            get
+            {
+                return courseList;
+            }
+        }
     }
 }
