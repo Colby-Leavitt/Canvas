@@ -25,8 +25,11 @@ namespace App.Canvas.Helpers
             {Code = code, Name = name, Description = description };
 
             courseService.Add(course);
+        }
 
-            courseService.courseList.ForEach(Console.WriteLine);
+        public void ListCourses()
+        {
+            courseService.Courses.ForEach(Console.WriteLine);
         }
     }
 }
