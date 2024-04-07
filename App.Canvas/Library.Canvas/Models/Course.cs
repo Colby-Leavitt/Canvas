@@ -17,6 +17,7 @@ namespace Library.Canvas.Models
 
         public Course()
         {
+            Code = string.Empty;
             Roster = new List<Person>();
             Assignments = new List<Assignment>();
             Modules = new List<Module>();

@@ -12,7 +12,7 @@ namespace App.Canvas.Helpers
     {
         private CourseService courseService = new CourseService();
 
-        public void CreateCourseRecord()
+        public void CreateCourseRecord(Course? selectedCourse = null)
         {
             Console.WriteLine("What is the code of the course? ");
             var code = Console.ReadLine() ?? string.Empty;
@@ -21,15 +21,44 @@ namespace App.Canvas.Helpers
             Console.WriteLine("What is the description of the course? ");
             var description = Console.ReadLine() ?? string.Empty;
 
-            var course = new Course
-            {Code = code, Name = name, Description = description };
+            bool isNewCourse = false;
+            if(selectedCourse == null) 
+            {
+                isNewCourse = true;
+                selectedCourse = new Course();
+            }
 
-            courseService.Add(course);
+
+            selectedCourse.Code = code;
+            selectedCourse.Name = name;
+            selectedCourse.Description = description;
+
+            if(isNewCourse) 
+            { 
+                courseService.Add(selectedCourse); 
+            }
+            
         }
 
         public void ListCourses()
         {
             courseService.Courses.ForEach(Console.WriteLine);
+        }
+
+        public void UpdateCourseRecord()
+        {
+            Console.WriteLine("Enter the code for the course to update: ");
+            ListCourses();
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.courseList.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                CreateCourseRecord(selectedCourse);
+            }
+            
         }
     }
 }
