@@ -53,12 +53,20 @@ namespace App.Canvas.Helpers
             var selection = Console.ReadLine();
 
 
-            var selectedCourse = courseService.courseList.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
             if (selectedCourse != null)
             {
                 CreateCourseRecord(selectedCourse);
             }
             
+        }
+
+        public void SearchCourses()
+        {
+            Console.WriteLine("Enter a query: ");
+            var query = Console.ReadLine() ?? string.Empty;
+
+            courseService.Search(query).ToList().ForEach(Console.WriteLine);
         }
     }
 }
