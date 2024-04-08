@@ -11,6 +11,26 @@ namespace Library.Canvas.Services
     {
         private List<Person> studentList = new List<Person>();
 
+        private static StudentService? _instance;
+
+        private StudentService() 
+        {
+            studentList = new List<Person>();
+
+        }
+
+        public static StudentService Current
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new StudentService();
+                }
+                return _instance;
+            }
+        }
+
         public void Add(Person student)
         {
             studentList.Add(student);
