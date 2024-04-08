@@ -77,7 +77,7 @@ namespace App.Canvas.Helpers
 
             if(int.TryParse(selectionStr, out int selectionInt))
             {
-                var selectedStudent = studentService.studentList.FirstOrDefault(s => s.Id == selectionInt);
+                var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectionInt);
                 if(selectedStudent != null)
                 {
                     CreateStudentRecord(selectedStudent);
