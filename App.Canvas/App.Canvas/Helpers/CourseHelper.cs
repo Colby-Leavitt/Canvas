@@ -58,6 +58,40 @@ namespace App.Canvas.Helpers
                 }
             }
 
+            Console.WriteLine("Would you like to add assignments? (Y/N) ");
+            var assignResponse = Console.ReadLine() ?? "N";
+            var assignments = new List<Assignment>();
+            if(assignResponse.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                continueAdding = true;
+                while(continueAdding)
+                {
+                    Console.WriteLine("Name: ");
+                    var assignmentName = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("Description: ");
+                    var assignmentDescription = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("Total Points: ");
+                    var totalPoints = decimal.Parse(Console.ReadLine() ?? "100");
+                    Console.WriteLine("Due Date: ");
+                    var dueDate = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
+
+                    assignments.Add(new Assignment
+                    {
+                        Name = assignmentName,
+                        Description = assignmentDescription,
+                        TotalAvailablePoints = totalPoints,
+                        DueDate = dueDate
+                    });
+
+                    Console.WriteLine("Add more courses? (Y,N)");
+                    assignResponse = Console.ReadLine() ?? "N";
+                    if(assignResponse.Equals("N",StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        continueAdding = false;
+                    }
+                }
+            }
+
 
             bool isNewCourse = false;
             if(selectedCourse == null) 
@@ -72,6 +106,8 @@ namespace App.Canvas.Helpers
             selectedCourse.Description = description;
             selectedCourse.Roster = new List<Person>();
             selectedCourse.Roster.AddRange(roster);
+            selectedCourse.Assignments = new List<Assignment>();
+            selectedCourse.Assignments.AddRange(assignments);
 
             if(isNewCourse) 
             { 
