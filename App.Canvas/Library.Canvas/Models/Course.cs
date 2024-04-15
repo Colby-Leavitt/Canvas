@@ -29,5 +29,15 @@ namespace Library.Canvas.Models
         {
             return $"{Code} - {Name}";
         }
+
+        public string DetailDisplay
+        {
+            get
+            {
+                return $"{ToString()} \n{Description}\n\n" +
+                       $"Roster:\n{string.Join("\n", Roster.Select(s => s.ToString()).ToArray())}\n\n" +
+                       $"Assignments:\n{string.Join("\n", Assignments.Select(a => a.ToString()).ToArray())}";
+            }
+        }
     }
 }

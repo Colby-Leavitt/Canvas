@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,11 @@ namespace Library.Canvas.Models
         public string? Description { get; set; }
         public decimal TotalAvailablePoints { get; set; }
         public DateTime DueDate { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"({DueDate}) {Name}";
+        }
     }
 }
