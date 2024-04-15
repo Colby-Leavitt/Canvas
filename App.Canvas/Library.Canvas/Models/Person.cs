@@ -20,8 +20,5 @@
         }
     }
 
-    public enum PersonClassification
-    {
-        Freshman, Sophomore, Junior, Senior
-    }
+
 }
