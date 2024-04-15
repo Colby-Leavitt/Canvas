@@ -18,7 +18,7 @@ namespace App.Canvas.Helpers
             studentService = StudentService.Current;
             courseService = CourseService.Current;
         }
-        public void CreateStudentRecord(Person? selectedStudent = null)
+        public void CreateStudentRecord(Student? selectedStudent = null)
         {
             Console.WriteLine("What is the id of the student? ");
             var id = Console.ReadLine();
@@ -46,7 +46,7 @@ namespace App.Canvas.Helpers
             if(selectedStudent == null)
             {
                 isCreate = true;
-                selectedStudent = new Person();
+                selectedStudent = new Student();
             }
 
             selectedStudent.Id = int.Parse(id ?? "0");
