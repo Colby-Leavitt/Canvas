@@ -157,7 +157,7 @@ namespace App.Canvas.Helpers
         public void UpdateCourseRecord()
         {
             Console.WriteLine("Enter the code for the course to update: ");
-            SearchCourses();
+            courseService.Courses.ForEach(Console.WriteLine);
 
             var selection = Console.ReadLine();
 
@@ -169,6 +169,8 @@ namespace App.Canvas.Helpers
             }
             
         }
+
+
 
         public void SearchCourses(string? query = null)
         {
