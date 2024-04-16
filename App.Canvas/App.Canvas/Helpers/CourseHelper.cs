@@ -183,6 +183,68 @@ namespace App.Canvas.Helpers
             }
         }
 
+        public void AddAssignment()
+        {
+            Console.WriteLine("Enter the code for the course to add the assignment to: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                selectedCourse.Assignments.Add(CreateAssignment());
+            }
+        }
+
+        public void UpdateAssignment()
+        {
+            Console.WriteLine("Enter the code for the course to update the assignment for: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                Console.WriteLine("Choose an assignment to update: ");
+                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                var selectionStr = Console.ReadLine() ?? string.Empty;
+                var selectionInt = int.Parse(selectionStr);
+                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
+                if (selectedAssignment != null)
+                {
+                    var index = selectedCourse.Assignments.IndexOf(selectedAssignment);
+                    selectedCourse.Assignments.RemoveAt(index);
+                    selectedCourse.Assignments.Insert(index, CreateAssignment());
+                }
+            }
+        }
+
+        public void RemoveAssignment()
+        {
+            Console.WriteLine("Enter the code for the course to remove the assignment from: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                Console.WriteLine("Choose an assignment to remove: ");
+                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                var selectionStr = Console.ReadLine() ?? string.Empty;
+                var selectionInt = int.Parse(selectionStr);
+                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
+                if (selectedAssignment != null)
+                {
+                    selectedCourse.Assignments.Remove(selectedAssignment);
+                }
+            }
+        }
         private void SetupRoster(Course c)
         {
             
@@ -218,29 +280,14 @@ namespace App.Canvas.Helpers
         private void SetupAssignments(Course c)
         {
             Console.WriteLine("Would you like to add assignments? (Y/N) ");
-            bool continueAdding = true;
+            bool continueAdding;
             var assignResponse = Console.ReadLine() ?? "N";
             if (assignResponse.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
             {
                 continueAdding = true;
                 while (continueAdding)
                 {
-                    Console.WriteLine("Name: ");
-                    var assignmentName = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Description: ");
-                    var assignmentDescription = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Total Points: ");
-                    var totalPoints = decimal.Parse(Console.ReadLine() ?? "100");
-                    Console.WriteLine("Due Date: ");
-                    var dueDate = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
-
-                    c.Assignments.Add(new Assignment
-                    {
-                        Name = assignmentName,
-                        Description = assignmentDescription,
-                        TotalAvailablePoints = totalPoints,
-                        DueDate = dueDate
-                    });
+                    c.Assignments.Add(CreateAssignment());
 
                     Console.WriteLine("Add more assignments? (Y,N)");
                     assignResponse = Console.ReadLine() ?? "N";
@@ -251,6 +298,26 @@ namespace App.Canvas.Helpers
                 }
             }
 
+        }
+
+        private Assignment CreateAssignment()
+        {
+            Console.WriteLine("Name: ");
+            var assignmentName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Description: ");
+            var assignmentDescription = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Total Points: ");
+            var totalPoints = decimal.Parse(Console.ReadLine() ?? "100");
+            Console.WriteLine("Due Date: ");
+            var dueDate = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
+
+            return new Assignment
+            {
+                Name = assignmentName,
+                Description = assignmentDescription,
+                TotalAvailablePoints = totalPoints,
+                DueDate = dueDate
+            };
         }
     }
 }
