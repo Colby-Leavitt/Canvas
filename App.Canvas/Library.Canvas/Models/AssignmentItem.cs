@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Canvas.Models
 {
-    public class ContentItem
+    public class AssignmentItem : ContentItem
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        
+        public Assignment? Assignment { get; set; }
     }
 }
