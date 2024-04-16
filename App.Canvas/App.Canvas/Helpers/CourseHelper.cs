@@ -77,73 +77,8 @@ namespace App.Canvas.Helpers
 
             if (isNewCourse)
             {
-                var roster = new List<Person>();
-                var assignments = new List<Assignment>();
-                Console.WriteLine("Which students should be enrolled in this course? ('Q' to quit)");
-                bool continueAdding = true;
-                while (continueAdding)
-                {
-                    studentService.Students.Where(s => !roster.Any(s2 => s2.Id == s.Id)).ToList().ForEach(Console.WriteLine);
-                    var selection = "Q";
-
-                    if (studentService.Students.Any(s => !roster.Any(s2 => s2.Id == s.Id)))
-                    {
-                        selection = Console.ReadLine() ?? string.Empty;
-                    }
-
-                    if (selection.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        continueAdding = false;
-                    }
-                    else
-                    {
-                        var selectedId = int.Parse(selection);
-                        var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId);
-
-                        if (selectedStudent != null)
-                        {
-                            roster.Add(selectedStudent);
-                        }
-                    }
-                }
-
-                Console.WriteLine("Would you like to add assignments? (Y/N) ");
-                var assignResponse = Console.ReadLine() ?? "N";
-                if (assignResponse.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    continueAdding = true;
-                    while (continueAdding)
-                    {
-                        Console.WriteLine("Name: ");
-                        var assignmentName = Console.ReadLine() ?? string.Empty;
-                        Console.WriteLine("Description: ");
-                        var assignmentDescription = Console.ReadLine() ?? string.Empty;
-                        Console.WriteLine("Total Points: ");
-                        var totalPoints = decimal.Parse(Console.ReadLine() ?? "100");
-                        Console.WriteLine("Due Date: ");
-                        var dueDate = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
-
-                        assignments.Add(new Assignment
-                        {
-                            Name = assignmentName,
-                            Description = assignmentDescription,
-                            TotalAvailablePoints = totalPoints,
-                            DueDate = dueDate
-                        });
-
-                        Console.WriteLine("Add more assignments? (Y,N)");
-                        assignResponse = Console.ReadLine() ?? "N";
-                        if (assignResponse.Equals("N", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            continueAdding = false;
-                        }
-                    }
-                }
-
-                selectedCourse.Roster = new List<Person>();
-                selectedCourse.Roster.AddRange(roster);
-                selectedCourse.Assignments = new List<Assignment>();
-                selectedCourse.Assignments.AddRange(assignments);
+                SetupRoster(selectedCourse);
+                SetupAssignments(selectedCourse);
             }
 
 
@@ -186,6 +121,76 @@ namespace App.Canvas.Helpers
             {
                 Console.WriteLine(selectedCourse.DetailDisplay);
             }
+        }
+
+        private void SetupRoster(Course c)
+        {
+            
+            Console.WriteLine("Which students should be enrolled in this course? ('Q' to quit)");
+            bool continueAdding = true;
+            while (continueAdding)
+            {
+                studentService.Students.Where(s => !c.Roster.Any(s2 => s2.Id == s.Id)).ToList().ForEach(Console.WriteLine);
+                var selection = "Q";
+
+                if (studentService.Students.Any(s => !c.Roster.Any(s2 => s2.Id == s.Id)))
+                {
+                    selection = Console.ReadLine() ?? string.Empty;
+                }
+
+                if (selection.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continueAdding = false;
+                }
+                else
+                {
+                    var selectedId = int.Parse(selection);
+                    var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId);
+
+                    if (selectedStudent != null)
+                    {
+                        c.Roster.Add(selectedStudent);
+                    }
+                }
+            }
+        }
+
+        private void SetupAssignments(Course c)
+        {
+            Console.WriteLine("Would you like to add assignments? (Y/N) ");
+            bool continueAdding = true;
+            var assignResponse = Console.ReadLine() ?? "N";
+            if (assignResponse.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                continueAdding = true;
+                while (continueAdding)
+                {
+                    Console.WriteLine("Name: ");
+                    var assignmentName = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("Description: ");
+                    var assignmentDescription = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("Total Points: ");
+                    var totalPoints = decimal.Parse(Console.ReadLine() ?? "100");
+                    Console.WriteLine("Due Date: ");
+                    var dueDate = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
+
+                    c.Assignments.Add(new Assignment
+                    {
+                        Name = assignmentName,
+                        Description = assignmentDescription,
+                        TotalAvailablePoints = totalPoints,
+                        DueDate = dueDate
+                    });
+
+                    Console.WriteLine("Add more assignments? (Y,N)");
+                    assignResponse = Console.ReadLine() ?? "N";
+                    if (assignResponse.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        continueAdding = false;
+                    }
+                }
+            }
+
         }
     }
 }
