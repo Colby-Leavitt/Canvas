@@ -123,6 +123,66 @@ namespace App.Canvas.Helpers
             }
         }
 
+        public void AddStudent()
+        {
+            Console.WriteLine("Enter the code for the course to add the student to: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                studentService.Students.Where(s => !selectedCourse.Roster.Any(s2 => s2.Id == s.Id)).ToList().ForEach(Console.WriteLine);
+                if (studentService.Students.Any(s => !selectedCourse.Roster.Any(s2 => s2.Id == s.Id)))
+                {
+                    selection = Console.ReadLine() ?? string.Empty;
+                }
+                if (selection != null)
+                {
+                    var selectedId = int.Parse(selection);
+                    var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId);
+                    if (selectedStudent != null)
+                    {
+                        selectedCourse.Roster.Add(selectedStudent);
+                    }
+                }
+            }
+        }
+
+        public void RemoveStudent() 
+        {
+            Console.WriteLine("Enter the code for the course to remove the student from: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                selectedCourse.Roster.ForEach(Console.WriteLine);
+                if (selectedCourse.Roster.Any())
+                {
+                    selection = Console.ReadLine() ?? string.Empty;
+                }
+                else
+                {
+                    selection = null;
+                }
+                if (selection != null)
+                {
+                    var selectedId = int.Parse(selection);
+                    var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId);
+                    if (selectedStudent != null)
+                    {
+                        selectedCourse.Roster.Remove(selectedStudent);
+                    }
+                }
+            }
+        }
+
         private void SetupRoster(Course c)
         {
             
