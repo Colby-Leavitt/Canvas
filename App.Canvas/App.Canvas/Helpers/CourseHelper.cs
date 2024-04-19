@@ -301,6 +301,21 @@ namespace App.Canvas.Helpers
 
         }
 
+        public void AddModule()
+        {
+            Console.WriteLine("Enter the code for the course to add the assignment to: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                selectedCourse.Modules.Add(CreateModule(selectedCourse));
+            }
+        }
+
         private void SetupModules(Course c)
         {
             Console.WriteLine("Would you like to add modules? (Y/N) ");
