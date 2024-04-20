@@ -9,5 +9,6 @@ namespace Library.Canvas.Models
     public class PageItem : ContentItem
     {
         public string? HtmlBody { get; set; }
+
     }
 }

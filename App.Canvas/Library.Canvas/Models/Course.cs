@@ -35,8 +35,9 @@ namespace Library.Canvas.Models
             get
             {
                 return $"{ToString()} \n{Description}\n\n" +
-                       $"Roster:\n{string.Join("\n", Roster.Select(s => s.ToString()).ToArray())}\n\n" +
-                       $"Assignments:\n{string.Join("\n", Assignments.Select(a => a.ToString()).ToArray())}";
+                       $"Roster:\n{string.Join("\n\t", Roster.Select(s => s.ToString()).ToArray())}\n\n" +
+                       $"Assignments:\n{string.Join("\n\t", Assignments.Select(a => a.ToString()).ToArray())}\n\n" +
+                       $"Modules:\n{string.Join("\n\t", Modules.Select(m => m.ToString()).ToArray())}";
             }
         }
     }
