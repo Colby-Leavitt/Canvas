@@ -395,6 +395,30 @@ namespace App.Canvas.Helpers
             return module;
         }
 
+        public void RemoveModule()
+        {
+            Console.WriteLine("Enter the code for the course to remove the module from: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                Console.WriteLine("Choose module to remove: ");
+                selectedCourse.Modules.ForEach(Console.WriteLine);
+                var selectionStr = Console.ReadLine() ?? string.Empty;
+                var selectionInt = int.Parse(selectionStr);
+                var selectedModule = selectedCourse.Modules.FirstOrDefault(a => a.Id == selectionInt);
+                if (selectedModule != null)
+                {
+                    selectedCourse.Modules.Remove(selectedModule);
+                }
+            }
+
+        }
+
         private AssignmentItem? CreateAssignmentItem(Course c)
         {
             Console.WriteLine("Name: ");
