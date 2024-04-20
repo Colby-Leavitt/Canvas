@@ -34,7 +34,7 @@ namespace Library.Canvas.Models
 
         public override string ToString()
         {
-            return $"({Id}) {Name}: {Description}\n" +
+            return $"[{Id}] {Name}: {Description}\n" +
                 $"{string.Join("\n\t", Content.Select(c => c.ToString()).ToArray())}";
         }
     }
