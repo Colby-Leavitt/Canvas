@@ -80,9 +80,10 @@ namespace MyApp
             Console.WriteLine("9. Remove a module from a course");
             Console.WriteLine("10. Update a module in a course");
             Console.WriteLine("11. Add an announcement to a course");
-            Console.WriteLine("12. Remove an announcement from a course");
-            Console.WriteLine("13. List all courses");               //course
-            Console.WriteLine("14. Search for a course");            //course
+            Console.WriteLine("12. Update an announcement in a course");
+            Console.WriteLine("13. Remove an announcement from a course");
+            Console.WriteLine("14. List all courses");               //course
+            Console.WriteLine("15. Search for a course");            //course
 
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))
@@ -133,13 +134,17 @@ namespace MyApp
                 }
                 else if(result == 12)
                 {
+                    courseHelper.UpdateAnnouncement();
+                }
+                else if(result == 13)
+                {
                     courseHelper.RemoveAnnouncement();
                 }
-                else if (result == 13)
+                else if (result == 14)
                 {
                     courseHelper.SearchCourses();
                 }
-                else if (result == 14)
+                else if (result == 15)
                 {
                     Console.WriteLine("Enter a query: ");
                     var query = Console.ReadLine() ?? string.Empty;
