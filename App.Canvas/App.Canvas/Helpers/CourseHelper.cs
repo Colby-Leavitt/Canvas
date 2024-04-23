@@ -90,7 +90,7 @@ namespace App.Canvas.Helpers
             }
             
         }
-         private Assignment CreateAssignment()
+        private Assignment CreateAssignment()
         {
             Console.WriteLine("Name: ");
             var assignmentName = Console.ReadLine() ?? string.Empty;
@@ -223,6 +223,20 @@ namespace App.Canvas.Helpers
             }
         }
 
+        public void CreateSubmission(Course c, int studentId, int assignmentId)
+        {
+            Console.WriteLine("What is the content of the submission?");
+            var content = Console.ReadLine();
+            c.Submissions.Add(
+                new Submission
+                {
+                    StudentId = studentId,
+                    AssignmentId = assignmentId,
+                    Content = content
+                }
+
+             );
+        }
 
 
         public void SearchCourses(string? query = null)
@@ -315,7 +329,32 @@ namespace App.Canvas.Helpers
             }
         }
 
-        
+        public void AddSubmission()
+        {
+            Console.WriteLine("Enter the code for the course to add the submission to: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                Console.WriteLine("Enter the Id for the student: ");
+                selectedCourse.Roster.ForEach(Console.WriteLine);
+                var selectedStudentId = int.Parse(Console.ReadLine() ?? "0");
+                
+
+                Console.WriteLine("Enter the Id for the assignment: ");
+                selectedCourse.Assignments.ToList().ForEach(Console.WriteLine);
+                var selectedAssignmentId = int.Parse(Console.ReadLine() ?? "0");
+
+                
+                CreateSubmission(selectedCourse, selectedStudentId, selectedAssignmentId);
+
+            }
+        }
+
         public void RemoveStudent() 
         {
             Console.WriteLine("Enter the code for the course to remove the student from: ");

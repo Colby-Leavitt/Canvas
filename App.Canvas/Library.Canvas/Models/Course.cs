@@ -26,6 +26,7 @@ namespace Library.Canvas.Models
                 return AssignmentGroups.SelectMany(ag => ag.Assignments);
             }
         }
+        public List<Submission> Submissions { get; set; }
         public List<Module> Modules { get; set; }
         public List<Announcement> Announcements { get; set; }
         public int Id { get; private set; }
@@ -39,6 +40,7 @@ namespace Library.Canvas.Models
             AssignmentGroups = new List<AssignmentGroup>();
             Modules = new List<Module>();
             Announcements = new List<Announcement>();
+            Submissions = new List<Submission>();
             Id = ++lastId;
         }
 
