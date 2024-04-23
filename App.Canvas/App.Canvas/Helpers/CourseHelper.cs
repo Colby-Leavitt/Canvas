@@ -334,6 +334,28 @@ namespace App.Canvas.Helpers
 
         }
         
+        public void RemoveAnnouncement()
+        {
+            Console.WriteLine("Enter the code for the course to remove the announcement from: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                Console.WriteLine("Choose an announcement to remove: ");
+                selectedCourse.Announcements.ForEach(Console.WriteLine);
+                var selectionStr = Console.ReadLine() ?? string.Empty;
+                var selectionInt = int.Parse(selectionStr);
+                var selectedAnnouncement = selectedCourse.Announcements.FirstOrDefault(a => a.Id == selectionInt);
+                if (selectedAnnouncement != null)
+                {
+                    selectedCourse.Announcements.Remove(selectedAnnouncement);
+                }
+            }
+        }
 
         public void UpdateCourseRecord()
         {
