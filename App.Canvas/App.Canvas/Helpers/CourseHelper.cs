@@ -478,6 +478,30 @@ namespace App.Canvas.Helpers
             }
         }
 
+        public void RemoveSubmission()
+        {
+            Console.WriteLine("Enter the code for the course to remove the submission from: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                selectedCourse.Submissions.ForEach(Console.WriteLine);
+                var selectedId = int.Parse(Console.ReadLine() ?? "0");
+                var selectedSubmission = selectedCourse.Submissions.FirstOrDefault(s=> s.Id == selectedId);
+                if (selectedSubmission != null)
+                {
+                    selectedCourse.Submissions.Remove(selectedSubmission);
+                }
+            }
+
+            
+
+        }
+
 
         public void UpdateCourseRecord()
         {
