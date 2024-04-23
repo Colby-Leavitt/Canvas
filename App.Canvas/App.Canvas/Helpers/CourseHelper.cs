@@ -90,6 +90,25 @@ namespace App.Canvas.Helpers
             }
             
         }
+         private Assignment CreateAssignment()
+        {
+            Console.WriteLine("Name: ");
+            var assignmentName = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Description: ");
+            var assignmentDescription = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Total Points: ");
+            var totalPoints = decimal.Parse(Console.ReadLine() ?? "100");
+            Console.WriteLine("Due Date: ");
+            var dueDate = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
+
+            return new Assignment
+            {
+                Name = assignmentName,
+                Description = assignmentDescription,
+                TotalAvailablePoints = totalPoints,
+                DueDate = dueDate
+            };
+        }       
         private Module CreateModule(Course c)
         {
             Console.WriteLine("Name: ");
@@ -146,7 +165,6 @@ namespace App.Canvas.Helpers
 
             return module;
         }        
-        
         private Announcement CreateAnnouncement(Course c)
         {
             Console.WriteLine("Enter the name of the announcement:");
@@ -162,6 +180,49 @@ namespace App.Canvas.Helpers
             };
 
         }
+
+        private void CreateAssignmentWithGroup(Course selectedCourse)
+        {
+            if(selectedCourse.AssignmentGroups.Any())
+            {
+                Console.WriteLine("[0] Add a new group");
+                selectedCourse.AssignmentGroups.ForEach(Console.WriteLine);
+
+                var selectionStr = Console.ReadLine() ?? string.Empty;
+                var selectionInt = int.Parse(selectionStr);
+
+                if(selectionInt == 0)
+                {
+                    var newGroup = new AssignmentGroup();
+                    Console.WriteLine("Group Name:");
+                    newGroup.Name = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("Group Weight:");
+                    newGroup.Weight = decimal.Parse(Console.ReadLine() ?? "1");
+
+                    newGroup.Assignments.Add(CreateAssignment());
+                    selectedCourse.AssignmentGroups.Add(newGroup);
+                }
+                else if (selectionInt != 0)
+                {
+                    var selectedGroup = selectedCourse.AssignmentGroups.FirstOrDefault(g => g.Id == selectionInt);
+                    if(selectedGroup != null)
+                    {
+                        selectedGroup.Assignments.Add(CreateAssignment());
+                    }
+                }
+            }
+            else
+            {
+                var newGroup = new AssignmentGroup();
+                Console.WriteLine("Group Name:");
+                newGroup.Name = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("Group Weight:");
+                newGroup.Weight = decimal.Parse(Console.ReadLine() ?? "1");
+                newGroup.Assignments.Add(CreateAssignment());
+                selectedCourse.AssignmentGroups.Add(newGroup);
+            }
+        }
+
 
 
         public void SearchCourses(string? query = null)
@@ -220,7 +281,7 @@ namespace App.Canvas.Helpers
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
             if (selectedCourse != null)
             {
-                selectedCourse.Assignments.Add(CreateAssignment());
+                CreateAssignmentWithGroup(selectedCourse);
             }
         }
         
@@ -299,13 +360,17 @@ namespace App.Canvas.Helpers
             if (selectedCourse != null)
             {
                 Console.WriteLine("Choose an assignment to remove: ");
-                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                selectedCourse.Assignments.ToList().ForEach(Console.WriteLine);
                 var selectionStr = Console.ReadLine() ?? string.Empty;
                 var selectionInt = int.Parse(selectionStr);
-                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
-                if (selectedAssignment != null)
+                var selectedGroup = selectedCourse.AssignmentGroups.FirstOrDefault(ag => ag.Assignments.Any(a => a.Id == selectionInt));
+                if (selectedGroup != null)
                 {
-                    selectedCourse.Assignments.Remove(selectedAssignment);
+                    var selectedAssignment = selectedGroup.Assignments.FirstOrDefault(a => a.Id == selectionInt);
+                    if (selectedAssignment != null)
+                    {
+                        var index = selectedGroup.Assignments.Remove(selectedAssignment);
+                    }
                 }
             }
         }
@@ -386,15 +451,21 @@ namespace App.Canvas.Helpers
             if (selectedCourse != null)
             {
                 Console.WriteLine("Choose an assignment to update: ");
-                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                selectedCourse.Assignments.ToList().ForEach(Console.WriteLine);
                 var selectionStr = Console.ReadLine() ?? string.Empty;
                 var selectionInt = int.Parse(selectionStr);
-                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
-                if (selectedAssignment != null)
+                var selectedGroup = selectedCourse.AssignmentGroups.FirstOrDefault(ag => ag.Assignments.Any(a => a.Id == selectionInt));
+                if (selectedGroup != null)
                 {
-                    var index = selectedCourse.Assignments.IndexOf(selectedAssignment);
-                    selectedCourse.Assignments.RemoveAt(index);
-                    selectedCourse.Assignments.Insert(index, CreateAssignment());
+                    var selectedAssignment = selectedGroup.Assignments.FirstOrDefault(a => a.Id == selectionInt);
+
+
+                    if (selectedAssignment != null)
+                    {
+                        var index = selectedGroup.Assignments.IndexOf(selectedAssignment);
+                        selectedGroup.Assignments.RemoveAt(index);
+                        selectedGroup.Assignments.Insert(index, CreateAssignment());
+                    }
                 }
             }
         }
@@ -571,7 +642,7 @@ namespace App.Canvas.Helpers
                 continueAdding = true;
                 while (continueAdding)
                 {
-                    c.Assignments.Add(CreateAssignment());
+                    CreateAssignmentWithGroup(c);
 
                     Console.WriteLine("Add more assignments? (Y,N)");
                     assignResponse = Console.ReadLine() ?? "N";
@@ -617,7 +688,7 @@ namespace App.Canvas.Helpers
             var description = Console.ReadLine() ?? string.Empty;
 
             Console.WriteLine("Which assignment should be added?");
-            c.Assignments.ForEach(Console.WriteLine);
+            c.Assignments.ToList().ForEach(Console.WriteLine);
             var choice = int.Parse(Console.ReadLine() ?? "-1");
             if (choice >= 0)
             {
@@ -668,25 +739,7 @@ namespace App.Canvas.Helpers
             };
         }
 
-        private Assignment CreateAssignment()
-        {
-            Console.WriteLine("Name: ");
-            var assignmentName = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Description: ");
-            var assignmentDescription = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Total Points: ");
-            var totalPoints = decimal.Parse(Console.ReadLine() ?? "100");
-            Console.WriteLine("Due Date: ");
-            var dueDate = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
 
-            return new Assignment
-            {
-                Name = assignmentName,
-                Description = assignmentDescription,
-                TotalAvailablePoints = totalPoints,
-                DueDate = dueDate
-            };
-        }
 
         
     }
