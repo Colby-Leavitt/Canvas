@@ -11,8 +11,8 @@ namespace Library.Canvas.Models
         public int Id { get; private set; }
         private static int lastId = 0;
 
-        public int StudentId { get; set; }
-        public int AssignmentId { get; set; }
+        public Student Student { get; set; }
+        public Assignment Assignment { get; set; }
         public string Content { get; set; }
 
 
@@ -20,6 +20,11 @@ namespace Library.Canvas.Models
         {
             Id = ++lastId;
             Content = string.Empty;
+        }
+
+        public override string ToString()
+        {
+            return $"[{Id}] {Student.Name}: {Assignment}";
         }
     }
 }
