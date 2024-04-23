@@ -20,6 +20,7 @@ namespace Library.Canvas.Models
         public List<Person> Roster { get; set; }
         public List<Assignment> Assignments { get; set; }
         public List<Module> Modules { get; set; }
+        public List<Announcement> Announcements { get; set; }
         public int Id { get; private set; }
         private static int lastId = 0;
         public string Prefix { get; set; }
@@ -30,6 +31,7 @@ namespace Library.Canvas.Models
             Roster = new List<Person>();
             Assignments = new List<Assignment>();
             Modules = new List<Module>();
+            Announcements = new List<Announcement>();
             Id = ++lastId;
         }
 
@@ -43,6 +45,7 @@ namespace Library.Canvas.Models
             get
             {
                 return $"{ToString()} \n{Description}\n\n" +
+                       $"Announcements:\n{string.Join("\n\t", Announcements.Select(s => s.ToString()).ToArray())}\n\n" +
                        $"Roster:\n{string.Join("\n\t", Roster.Select(s => s.ToString()).ToArray())}\n\n" +
                        $"Assignments:\n{string.Join("\n\t", Assignments.Select(a => a.ToString()).ToArray())}\n\n" +
                        $"Modules:\n{string.Join("\n\t", Modules.Select(m => m.ToString()).ToArray())}";
