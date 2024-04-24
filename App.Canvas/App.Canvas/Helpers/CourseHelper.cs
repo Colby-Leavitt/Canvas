@@ -679,6 +679,24 @@ namespace App.Canvas.Helpers
             }
         }
 
+        public void UpdateSubmission()
+        {
+            Console.WriteLine("Enter the code for the course to update the assignment for: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+
+            var selection = Console.ReadLine();
+
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                selectedCourse.Submissions.ForEach(Console.WriteLine);
+                var selectedId = int.Parse(Console.ReadLine() ?? "0");
+
+                Console.WriteLine("Enter new content:");
+                selectedCourse.Submissions.FirstOrDefault(s => s.Id == selectedId).Content = Console.ReadLine() ?? string.Empty;
+            }
+        }
 
         private void SetupRoster(Course c)
         {
