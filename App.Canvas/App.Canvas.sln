@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Canvas", "App.Canvas\App.Canvas.csproj", "{5C8B47B4-D131-4997-AF80-0361798DB8DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Canvas", "App.Canvas\App.Canvas.csproj", "{5C8B47B4-D131-4997-AF80-0361798DB8DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Canvas", "Library.Canvas\Library.Canvas.csproj", "{CD5F048D-CBC2-4F5C-9668-436B1EBB29A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Canvas", "Library.Canvas\Library.Canvas.csproj", "{CD5F048D-CBC2-4F5C-9668-436B1EBB29A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAUI.Canvas", "MAUI.Canvas\MAUI.Canvas.csproj", "{13D9160A-2774-4012-9BB1-AB413A9FBCEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{CD5F048D-CBC2-4F5C-9668-436B1EBB29A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD5F048D-CBC2-4F5C-9668-436B1EBB29A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD5F048D-CBC2-4F5C-9668-436B1EBB29A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13D9160A-2774-4012-9BB1-AB413A9FBCEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13D9160A-2774-4012-9BB1-AB413A9FBCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13D9160A-2774-4012-9BB1-AB413A9FBCEB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{13D9160A-2774-4012-9BB1-AB413A9FBCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13D9160A-2774-4012-9BB1-AB413A9FBCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13D9160A-2774-4012-9BB1-AB413A9FBCEB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
