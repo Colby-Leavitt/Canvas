@@ -73,22 +73,23 @@ namespace MyApp
             Console.WriteLine("2. Update a course");                
             Console.WriteLine("3. Add a student to a course");
             Console.WriteLine("4. Remove a student from a course");
-            Console.WriteLine("5. Add an assignment");
-            Console.WriteLine("6. Update an assignment");
-            Console.WriteLine("7. Remove an assignment");
-            Console.WriteLine("8. Create a student submission");
-            Console.WriteLine("9. List all submissions for a course");
-            Console.WriteLine("10. Update a student submission");
-            Console.WriteLine("11. Remove a student submission");
-            Console.WriteLine("12. Grade a student submission");
-            Console.WriteLine("13. Add a module to a course");
-            Console.WriteLine("14. Remove a module from a course");
-            Console.WriteLine("15. Update a module in a course");
-            Console.WriteLine("16. Add an announcement to a course");
-            Console.WriteLine("17. Update an announcement in a course");
-            Console.WriteLine("18. Remove an announcement from a course");
-            Console.WriteLine("19. List all courses");               
-            Console.WriteLine("20. Search for a course");            
+            Console.WriteLine("5. Get a course grade for a student");
+            Console.WriteLine("6. Add an assignment");
+            Console.WriteLine("7. Update an assignment");
+            Console.WriteLine("8. Remove an assignment");
+            Console.WriteLine("9. Create a student submission");
+            Console.WriteLine("10. List all submissions for a course");
+            Console.WriteLine("11. Update a student submission");
+            Console.WriteLine("12. Remove a student submission");
+            Console.WriteLine("13. Grade a student submission");
+            Console.WriteLine("14. Add a module to a course");
+            Console.WriteLine("15. Remove a module from a course");
+            Console.WriteLine("16. Update a module in a course");
+            Console.WriteLine("17. Add an announcement to a course");
+            Console.WriteLine("18. Update an announcement in a course");
+            Console.WriteLine("19. Remove an announcement from a course");
+            Console.WriteLine("20. List all courses");               
+            Console.WriteLine("21. Search for a course");            
 
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))
@@ -111,65 +112,69 @@ namespace MyApp
                 }
                 else if(result == 5)
                 {
-                    courseHelper.AddAssignment();
+                    courseHelper.GetStudentGrade();
                 }
                 else if(result == 6)
                 {
-                    courseHelper.UpdateAssignment();
+                    courseHelper.AddAssignment();
                 }
                 else if(result == 7)
                 {
-                    courseHelper.RemoveAssignment();
+                    courseHelper.UpdateAssignment();
                 }
                 else if(result == 8)
                 {
-                    courseHelper.AddSubmission();
+                    courseHelper.RemoveAssignment();
                 }
                 else if(result == 9)
                 {
-                    courseHelper.ListSubmissions();
+                    courseHelper.AddSubmission();
                 }
                 else if(result == 10)
                 {
-                    courseHelper.UpdateSubmission();
+                    courseHelper.ListSubmissions();
                 }
                 else if(result == 11)
                 {
-                    courseHelper.RemoveSubmission();
+                    courseHelper.UpdateSubmission();
                 }
                 else if(result == 12)
                 {
-                    courseHelper.GradeSubmission();
+                    courseHelper.RemoveSubmission();
                 }
                 else if(result == 13)
                 {
-                    courseHelper.AddModule();
+                    courseHelper.GradeSubmission();
                 }
                 else if(result == 14)
                 {
-                    courseHelper.RemoveModule();
+                    courseHelper.AddModule();
                 }
                 else if(result == 15)
                 {
-                    courseHelper.UpdateModule();
+                    courseHelper.RemoveModule();
                 }
                 else if(result == 16)
                 {
-                    courseHelper.AddAnnouncement();
+                    courseHelper.UpdateModule();
                 }
                 else if(result == 17)
                 {
-                    courseHelper.UpdateAnnouncement();
+                    courseHelper.AddAnnouncement();
                 }
                 else if(result == 18)
                 {
+                    courseHelper.UpdateAnnouncement();
+                }
+                else if(result == 19)
+                {
                     courseHelper.RemoveAnnouncement();
                 }
-                else if (result == 19)
+                else if (result == 20)
                 {
                     courseHelper.SearchCourses();
                 }
-                else if (result == 20)
+                else if (result == 21)
                 {
                     Console.WriteLine("Enter a query: ");
                     var query = Console.ReadLine() ?? string.Empty;
