@@ -78,15 +78,16 @@ namespace MyApp
             Console.WriteLine("7. Remove an assignment");
             Console.WriteLine("8. Create a student submission");
             Console.WriteLine("9. List all submissions for a course");
-            Console.WriteLine("10. Remove a student submission");
-            Console.WriteLine("11. Add a module to a course");
-            Console.WriteLine("12. Remove a module from a course");
-            Console.WriteLine("13. Update a module in a course");
-            Console.WriteLine("14. Add an announcement to a course");
-            Console.WriteLine("15. Update an announcement in a course");
-            Console.WriteLine("16. Remove an announcement from a course");
-            Console.WriteLine("17. List all courses");               
-            Console.WriteLine("18. Search for a course");            
+            Console.WriteLine("10. Update a student submission");
+            Console.WriteLine("11. Remove a student submission");
+            Console.WriteLine("12. Add a module to a course");
+            Console.WriteLine("13. Remove a module from a course");
+            Console.WriteLine("14. Update a module in a course");
+            Console.WriteLine("15. Add an announcement to a course");
+            Console.WriteLine("16. Update an announcement in a course");
+            Console.WriteLine("17. Remove an announcement from a course");
+            Console.WriteLine("18. List all courses");               
+            Console.WriteLine("19. Search for a course");            
 
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))
@@ -129,37 +130,41 @@ namespace MyApp
                 }
                 else if(result == 10)
                 {
-                    courseHelper.RemoveSubmission();
+                    courseHelper.UpdateSubmission();
                 }
                 else if(result == 11)
                 {
-                    courseHelper.AddModule();
+                    courseHelper.RemoveSubmission();
                 }
                 else if(result == 12)
                 {
-                    courseHelper.RemoveModule();
+                    courseHelper.AddModule();
                 }
                 else if(result == 13)
                 {
-                    courseHelper.UpdateModule();
+                    courseHelper.RemoveModule();
                 }
                 else if(result == 14)
                 {
-                    courseHelper.AddAnnouncement();
+                    courseHelper.UpdateModule();
                 }
                 else if(result == 15)
                 {
-                    courseHelper.UpdateAnnouncement();
+                    courseHelper.AddAnnouncement();
                 }
                 else if(result == 16)
                 {
+                    courseHelper.UpdateAnnouncement();
+                }
+                else if(result == 17)
+                {
                     courseHelper.RemoveAnnouncement();
                 }
-                else if (result == 17)
+                else if (result == 18)
                 {
                     courseHelper.SearchCourses();
                 }
-                else if (result == 18)
+                else if (result == 19)
                 {
                     Console.WriteLine("Enter a query: ");
                     var query = Console.ReadLine() ?? string.Empty;
