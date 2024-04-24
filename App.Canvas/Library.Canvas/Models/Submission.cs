@@ -14,6 +14,7 @@ namespace Library.Canvas.Models
         public Student Student { get; set; }
         public Assignment Assignment { get; set; }
         public string Content { get; set; }
+        public decimal Grade { get; set; }
 
 
         public Submission() 
@@ -24,7 +25,7 @@ namespace Library.Canvas.Models
 
         public override string ToString()
         {
-            return $"[{Id}] {Student.Name}: {Assignment}";
+            return $"[{Id}] ({Grade}) {Student.Name}: {Assignment.Name}";
         }
     }
 }
