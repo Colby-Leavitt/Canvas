@@ -140,5 +140,14 @@ namespace App.Canvas.Helpers
                 }
             }
         }
+
+        public void GetGPA()
+        {
+            Console.WriteLine("Choose a student:");
+            studentService.Students.Where(s => s is Student).ToList().ForEach(Console.WriteLine);
+            var selectedStudentId = int.Parse(Console.ReadLine() ?? "0");
+
+            Console.WriteLine($"GPA: {studentService.GetGPA(selectedStudentId)}");
+        }
     }
 }

@@ -42,7 +42,8 @@ namespace MyApp
             Console.WriteLine("1. Add a new person");               
             Console.WriteLine("2. Update a person");    
             Console.WriteLine("3. List all people");     
-            Console.WriteLine("4. Search for a person");           
+            Console.WriteLine("4. Search for a person");
+            Console.WriteLine("5. Get a student's GPA");
 
             var input = Console.ReadLine();
 
@@ -63,6 +64,10 @@ namespace MyApp
                 else if (result == 4)
                 {
                     studentHelper.SearchStudents();
+                }
+                else if (result == 5)
+                {
+                    studentHelper.GetGPA();
                 }
             }
         }

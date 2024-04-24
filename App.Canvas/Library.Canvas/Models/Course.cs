@@ -32,6 +32,8 @@ namespace Library.Canvas.Models
         public int Id { get; private set; }
         private static int lastId = 0;
         public string? Prefix { get; set; }
+        public int CreditHours { get; set; }
+
         public Course()
         {
             Name = string.Empty;
@@ -41,6 +43,7 @@ namespace Library.Canvas.Models
             Modules = new List<Module>();
             Announcements = new List<Announcement>();
             Submissions = new List<Submission>();
+            CreditHours = 3;
             Id = ++lastId;
         }
 
