@@ -9,7 +9,7 @@ namespace MAUI.Canvas.ViewModels
 {
     internal class MainViewModel
     {
-        public List<Person> students { get; set; } = new List<Person>();
+        public List<Person> Students { get; set; } = new List<Person>();
 
     }
 }
