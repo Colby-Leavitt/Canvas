@@ -40,7 +40,7 @@ namespace Library.Canvas.Services
         {
             FakeDatabase.People.Remove(student);
         }
-        public IEnumerable<Student?> Students
+        public IEnumerable<Student> Students
         {
             get
             {
@@ -62,6 +62,11 @@ namespace Library.Canvas.Services
             var totalCreditHours = courses.Select(c => c.CreditHours).Sum();
 
             return totalGradePoints / (totalCreditHours > 0 ? totalCreditHours : -1);
+        }
+
+        public Person? GetById(int id)
+        {
+            return FakeDatabase.People.FirstOrDefault(p => p.Id == id);
         }
     }
 }
