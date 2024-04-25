@@ -101,7 +101,7 @@ namespace App.Canvas.Helpers
 
         public void ListStudents()
         {
-            studentService.Students.ForEach(Console.WriteLine);
+            studentService.Students.ToList().ForEach(Console.WriteLine);
 
             Console.WriteLine("Select a student: ");
             var selectionStr = Console.ReadLine();
@@ -127,7 +127,7 @@ namespace App.Canvas.Helpers
         public void UpdateStudentRecord()
         {
             Console.WriteLine("Select a person to update: ");
-            studentService.Students.ForEach(Console.WriteLine);
+            studentService.Students.ToList().ForEach(Console.WriteLine);
 
             var selectionStr = Console.ReadLine();
 
