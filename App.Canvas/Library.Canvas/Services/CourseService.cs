@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Canvas.Database;
 using Library.Canvas.Models;
 
 namespace Library.Canvas.Services
 {
     public class CourseService
     {
-        private List<Course> courseList = new List<Course>();
+        
         private static CourseService? _instance;
 
 
         private CourseService()
         {
-            courseList = new List<Course>();
+            
 
         }
 
@@ -32,13 +33,13 @@ namespace Library.Canvas.Services
         }
         public void Add(Course course)
         {
-            courseList.Add(course);
+           FakeDatabase.Courses.Add(course);
         }
         public List<Course> Courses
         {
             get
             {
-                return courseList;
+                return FakeDatabase.Courses;
             }
         }
 

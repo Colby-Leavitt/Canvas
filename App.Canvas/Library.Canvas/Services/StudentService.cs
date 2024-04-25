@@ -1,4 +1,5 @@
-﻿using Library.Canvas.Models;
+﻿using Library.Canvas.Database;
+using Library.Canvas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,13 @@ namespace Library.Canvas.Services
 {
     public class StudentService
     {
-        private List<Person> studentList; //= new List<Person>();
+        
 
         private static StudentService? _instance;
 
         private StudentService() 
         {
-            studentList = new List<Person>();
+            
         }
 
         public static StudentService Current
@@ -32,19 +33,24 @@ namespace Library.Canvas.Services
 
         public void Add(Person student)
         {
-            studentList.Add(student);
+            FakeDatabase.People.Add(student);
         }
-        public List<Person> Students
+
+        public void Remove(Person student)
+        {
+            FakeDatabase.People.Remove(student);
+        }
+        public IEnumerable<Student?> Students
         {
             get
             {
-                return studentList;
+                return FakeDatabase.People.Where(p => p is Student).Select(p => p as Student);
             }
         }
 
-        public IEnumerable<Person> Search(string query)
+        public IEnumerable<Student?> Search(string query)
         {
-            return studentList.Where(s => s.Name.ToUpper().Contains(query.ToUpper()));
+            return Students.Where(s => (s != null) && s.Name.ToUpper().Contains(query.ToUpper()));
         }
 
         public decimal GetGPA(int studentId)
