@@ -64,13 +64,16 @@
                 />
             <Button
                 Text="Edit Course"
+                Clicked="EditCourseClick"
                 />
             <Button
                 Text="Remove Course"
+                Clicked="RemoveCourseClick"
                 />
 
             <Button
                 Text="Cancel"
+                Clicked="CancelClicked"
                 />
         </VerticalStackLayout>
     </VerticalStackLayout>

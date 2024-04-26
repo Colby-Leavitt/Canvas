@@ -37,7 +37,12 @@ namespace MAUI.Canvas.ViewModels
         {
             get
             {
-                return new ObservableCollection<Course>(CourseService.Current.Courses);
+                var filteredCourseList = CourseService
+                    .Current
+                    .Courses
+                    .Where(
+                    s => s.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty));
+                return new ObservableCollection<Course>(filteredCourseList);
             }
         }
 
@@ -79,6 +84,7 @@ namespace MAUI.Canvas.ViewModels
             {
                 query = value;
                 NotifyPropertyChanged(nameof(People));
+                NotifyPropertyChanged(nameof(Courses));
             }
         }
 
@@ -93,6 +99,12 @@ namespace MAUI.Canvas.ViewModels
         {
             var idParam = SelectedPerson?.Id ?? 0;
             s.GoToAsync($"//PersonDetail?personId={idParam}");
+        }
+
+        public void EditCourseClick(Shell s)
+        {
+            var idParam = SelectedCourse?.Id ?? 0;
+            s.GoToAsync($"//CourseDetail?courseId={idParam}");
         }
 
         public void AddEnrollmentClick(Shell s)
@@ -110,6 +122,14 @@ namespace MAUI.Canvas.ViewModels
             if (SelectedPerson == null) { return; }
 
             StudentService.Current.Remove(SelectedPerson);
+            RefreshView();
+        }
+
+        public void RemoveCourseClick()
+        {
+            if (SelectedCourse == null) { return; }
+
+            CourseService.Current.Remove(SelectedCourse);
             RefreshView();
         }
 

@@ -5,12 +5,12 @@ using MAUI.Canvas.ViewModels;
 
 namespace MAUI.Canvas.Views;
 
+[QueryProperty(nameof(CourseId), "courseId")]
 public partial class CourseDetailView : ContentPage
 {
     public CourseDetailView()
     {
         InitializeComponent();
-        BindingContext = new CourseDetailViewModel();
     }
 
     private void CancelClicked(object sender, EventArgs e)
@@ -20,6 +20,21 @@ public partial class CourseDetailView : ContentPage
 
     private void OkClicked(object sender, EventArgs e)
     {
-        (BindingContext as CourseDetailViewModel).AddCourse(Shell.Current);
+        (BindingContext as CourseDetailViewModel).AddCourse();
+    }
+
+    private void OnLeaving(object sender, NavigatedFromEventArgs e)
+    {
+        BindingContext = null;
+    }
+
+    private void OnArriving(object sender, NavigatedToEventArgs e)
+    {
+        BindingContext = new CourseDetailViewModel(CourseId);
+    }
+
+    public int CourseId
+    {
+        set; get;
     }
 }

@@ -35,6 +35,11 @@ namespace Library.Canvas.Services
         {
            FakeDatabase.Courses.Add(course);
         }
+
+        public void Remove(Course course)
+        {
+            FakeDatabase.Courses.Remove(course);
+        }
         public List<Course> Courses
         {
             get
@@ -76,6 +81,10 @@ namespace Library.Canvas.Services
         public decimal GetGradePoints(int courseId, int studentId)
         {
             return GetGradePoints(GetWeightedGrade(courseId, studentId));
+        }
+        public Course? GetById(int id)
+        {
+            return FakeDatabase.Courses.FirstOrDefault(p => p.Id == id);
         }
 
         public string GetLetterGrade(decimal grade)
